@@ -1,0 +1,127 @@
+ha
+	.global main
+main: 
+	stmfd sp!, {r0-r3, fp, lr}
+	add fp, sp, #4
+	sub sp, sp, undecided
+	Ldr r0, .Lts+0
+	str r0, [sp, #0]
+	Mov r0, #4
+	str r0, [sp, #4]
+	B tianci
+	Mov r0, r4
+	str r0, [fp,#-8]
+
+	Mov r0, #2
+	str r0, [fp,#-12]
+	mov r1, r0
+	Mov r0, #4
+	Ldr r1, [fp, #-12]
+	Ldr r2, [fp, #-20]
+	Add r3, r1, r2
+	Mov r1, #3
+	Mul r2, r3, r1
+	Mov r1, #4
+	Add r3, r2, r1
+	Mov r1, #3
+	Mov r2, #5
+	str r0 [sp, #-4]!
+	Ldr r0, [fp, #-8]
+	str r3 [sp, #-8]!
+	Add r3, r2, r0
+	Add r0, r1, r3
+	ldr r1, [sp, #-8]!
+	Add r2, r1, r0
+	ldr r0, [sp, #-4]!
+	Add r1, r0, r2
+	Mov r0, #2
+	Add r2, r1, r0
+	str r2, [fp,#-16]
+
+	Mov r0, #0
+	str r0, [fp,#-24]
+
+	b .Ls0
+.Ls1:
+	Ldr r0, [fp, #-12]
+	Mov r1, #0
+	cmp r0, r1
+	Moveq r2, #1
+	Movne r2, #0
+	cmp r2, #0
+	beq .Ls2
+	Ldr r0, [fp, #-12]
+	Ldr r1, [fp, #-12]
+	Add r3, r1, #1
+	str r3, [fp, #-12]
+	Add r3, r0, r1
+	Ldr r0, [fp, #-12]
+	Add r1, r3, r0
+	str r1, [fp,#-12]
+	mov r0, r1
+	b .Ls3
+.Ls2:
+	Mov r0, #3
+	str r0, [fp,#-12]
+	mov r1, r0
+.Ls3:
+	Ldr r0, [fp, #-24]
+	Add r1, r0, #1
+	str r1, [fp, #-24]
+.Ls0:
+	Ldr r0, [fp, #-24]
+	Mov r1, #5
+	cmp r0, r1
+	Movlt r3, #1
+	Movge r3, #0
+	cmp r3, #0
+	bne .Ls1
+	Ldr r0, [fp, #-12]
+	Mov r1, #0
+	str r2 [sp, #-4]!
+	cmp r0, r1
+	Moveq r2, #1
+	Movne r2, #0
+	cmp r2, #0
+	bne .Ls4
+	Mov r0, #3
+	str r0, [fp,#-12]
+	mov r1, r0
+.Ls4:
+	Ldr r0, .Lts+4
+	str r0, [sp, #0]
+	Mov r0, #5
+	str r0, [sp, #4]
+	B tianci
+	Mov r0, r4
+	Mov r0, #0
+	Mov r4, r0
+	b .L0
+
+.L0:
+	sub sp, fp, #4
+	ldmfd sp!, {r0-r3, fp, pc}
+	.global tianci
+tianci: 
+	stmfd sp!, {r0-r3, fp, lr}
+	add fp, sp, #4
+	sub sp, sp, undecided
+	 ldr r3, [fp, #20]
+	 str r3, [fp, #-8]
+	Mov r0, #1
+	Mov r4, r0
+	b .L1
+
+.L1:
+	sub sp, fp, #4
+	ldmfd sp!, {r0-r3, fp, pc}
+.Lts:
+	.word   .Lts0
+	.word   .Lts1
+	.align 2
+.Lts0:
+	.asciz "tianci"
+	.align 2
+.Lts1:
+	.asciz "hahahahha2"
+Ended with err 0
